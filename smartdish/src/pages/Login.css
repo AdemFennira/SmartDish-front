@@ -1,0 +1,115 @@
+
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fbf8f5;
+}
+
+/* --- En-tête SmartDish --- */
+.login-header {
+  width: 100%;
+  background-color: #f4e4d0;
+  padding: 1.2rem 0;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.login-header .logo {
+  font-size: 1.8rem;
+  color: #4b3621;
+  margin: 0;
+}
+
+/* --- Bloc principal --- */
+.login-content {
+  background: #fff;
+  margin-top: 2rem;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  max-width: 380px;
+  width: 90%;
+  text-align: center;
+}
+
+.login-content h2 {
+  font-size: 1.6rem;
+  color: #4b3621;
+  margin-bottom: 0.5rem;
+}
+
+.login-content p {
+  color: #777;
+  margin-bottom: 1.5rem;
+}
+
+
+.separator::before,
+.separator::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #ccc;
+  margin: 0 0.5rem;
+}
+
+/* --- Formulaire --- */
+form {
+  text-align: left;
+}
+
+label {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+}
+
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  margin-bottom: 1.2rem;
+}
+
+.submit-btn {
+  width: 100%;
+  background: #a67846;
+  color: white;
+  padding: 0.7rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.submit-btn:hover {
+  background: #8b6137;
+}
+
+/* --- Lien d'inscription --- */
+.register-link {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.register-link a {
+  color: #a67846;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}

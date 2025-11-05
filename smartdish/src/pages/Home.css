@@ -1,0 +1,8 @@
+.recipes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;  /* centre les cartes horizontalement */
+  gap: 2rem;                /* espace entre les cartes */
+  padding: 2rem 3rem;
+  background-color: #fbf8f5;
+}

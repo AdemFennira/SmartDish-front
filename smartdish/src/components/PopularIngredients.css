@@ -1,0 +1,32 @@
+.popular-ingredients {
+  text-align: center;
+  padding: 2rem 1rem;
+  background-color: #fff;
+}
+
+.popular-ingredients h3 {
+  color: #4d3b2f;
+  margin-bottom: 1rem;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+.tag {
+  background-color: #f4e4d0;
+  color: #6a4c2f;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tag:hover {
+  background-color: #e2c9ad;
+  transform: scale(1.05);
+}
