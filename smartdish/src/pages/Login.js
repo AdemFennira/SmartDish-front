@@ -54,7 +54,7 @@ export default function Login() {
               />{" "}
               Se souvenir de moi
             </label>
-            <a href="#">Mot de passe oublié ?</a>
+            <a href="/reset-password">Mot de passe oublié ?</a>
           </div>
 
           <button type="submit" className="submit-btn">SE CONNECTER</button>
