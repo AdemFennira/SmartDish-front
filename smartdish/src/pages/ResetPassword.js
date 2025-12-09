@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./ResetPassword.css"; // CSS dédié à cette page
+import "./ResetPassword.css";
 
 export default function ResetPassword() {
   const [email, setEmail] = useState("");
@@ -10,12 +10,10 @@ export default function ResetPassword() {
 
   return (
     <div className="reset-container">
-      {/* --- En-tête SmartDish --- */}
       <header className="reset-header">
         <h1 className="logo">🍽 SmartDish</h1>
       </header>
 
-      {/* --- Contenu principal --- */}
       <div className="reset-content">
         <h2>Réinitialiser le mot de passe</h2>
         <p>Entrez votre email pour recevoir un lien de réinitialisation.</p>
