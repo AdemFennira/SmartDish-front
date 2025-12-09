@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { FaUserCircle } from "react-icons/fa";
 import "./Header.css";
 
 export default function Header() {
@@ -13,7 +14,9 @@ export default function Header() {
           <li>Suggestions</li>
           <li>Mes favoris</li>
           <li className="profile-icon">
-            <Link to="/login">👤</Link>
+            <Link to="/profil">
+                <FaUserCircle size={26} />
+            </Link>
           </li>
         </ul>
       </nav>
