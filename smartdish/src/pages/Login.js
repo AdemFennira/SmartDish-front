@@ -51,7 +51,7 @@ export default function Login() {
                 type="checkbox"
                 checked={remember}
                 onChange={() => setRemember(!remember)}
-              />{" "}
+              />
               Se souvenir de moi
             </label>
             <a href="/reset-password">Mot de passe oublié ?</a>
@@ -61,7 +61,7 @@ export default function Login() {
         </form>
 
         <p className="register-link">
-          Je n’ai pas de compte, <a href="#">je m’inscris</a>
+          Je n’ai pas de compte, <a href="register">je m’inscris</a>
         </p>
       </div>
     </div>
