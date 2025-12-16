@@ -8,7 +8,6 @@ export default function Profil() {
     () => [
       { key: "profil", label: "Profil" },
       { key: "preferences", label: "Préférences" },
-      { key: "activite", label: "Activité" },
       { key: "parametres", label: "Paramètres" },
     ],
     []
@@ -44,7 +43,6 @@ export default function Profil() {
   const saveEdit = () => {
     setUser(draft);
     setEditProfile(false);
-    // plus tard: appeler PUT /api/users/me
   };
 
   // --- STATS (mock) ---
@@ -76,17 +74,6 @@ export default function Profil() {
     if (!label) return;
     setPrefs((p) => ({ ...p, [groupKey]: [...new Set([...p[groupKey], label])] }));
   };
-
-  // --- ACTIVITY (mock) ---
-  const activity = useMemo(
-    () => [
-      { type: "cooked", title: 'A cuisiné "Risotto aux champignons"', when: "Il y a 2 jours", rating: 5 },
-      { type: "fav", title: 'A ajouté aux favoris "Salade de quinoa colorée"', when: "Il y a 3 jours" },
-      { type: "cooked", title: 'A cuisiné "Curry de légumes épicé"', when: "Il y a 1 semaine", rating: 4 },
-      { type: "fav", title: 'A ajouté aux favoris "Saumon grillé aux herbes"', when: "Il y a 1 semaine" },
-    ],
-    []
-  );
 
   // --- SETTINGS (mock) ---
   const [settings, setSettings] = useState({
@@ -144,9 +131,7 @@ export default function Profil() {
                 </div>
 
                 <div className="userTop">
-                  <div className="avatar" aria-hidden="true">
-                    👤
-                  </div>
+                  <div className="avatar">👤</div>
                   <div>
                     <div className="userName">{user.fullName}</div>
                     <div className="muted">Membre depuis {user.memberSince}</div>
@@ -233,10 +218,6 @@ export default function Profil() {
           {active === "preferences" && (
             <div className="grid2">
               <section className="card">
-                <div className="cardHeader">
-                  <h2>Préférences alimentaires</h2>
-                </div>
-
                 <Group
                   title="Régime alimentaire"
                   chips={prefs.diet}
@@ -263,10 +244,6 @@ export default function Profil() {
               </section>
 
               <section className="card">
-                <div className="cardHeader">
-                  <h2>Préférences de cuisine</h2>
-                </div>
-
                 <div className="kv">
                   <div className="kvLabel">Niveau de compétence</div>
                   <div className="pill">👨‍🍳 {prefs.level}</div>
@@ -284,78 +261,38 @@ export default function Profil() {
             </div>
           )}
 
-          {/* ---------------- ACTIVITE ---------------- */}
-          {active === "activite" && (
-            <section className="card">
-              <div className="cardHeader">
-                <h2>Activité récente</h2>
-              </div>
-
-              <div className="activityList">
-                {activity.map((a, idx) => (
-                  <div className="activityItem" key={idx}>
-                    <div className={`bubble ${a.type === "fav" ? "pink" : "mint"}`}>
-                      {a.type === "fav" ? "❤️" : "🧑‍🍳"}
-                    </div>
-
-                    <div className="activityText">
-                      <div className="activityTitle">{a.title}</div>
-                      <div className="muted">{a.when}</div>
-                    </div>
-
-                    {typeof a.rating === "number" && <div className="rating">⭐ {a.rating}</div>}
-                  </div>
-                ))}
-              </div>
-            </section>
-          )}
-
           {/* ---------------- PARAMETRES ---------------- */}
           {active === "parametres" && (
             <div className="grid2">
               <section className="card">
-                <div className="cardHeader">
-                  <h2>Notifications</h2>
-                </div>
-
                 <SettingRow
                   title="Nouvelles recettes"
-                  desc="Recevoir des suggestions personnalisées"
                   value={settings.newRecipes}
                   onToggle={() => setSettings((s) => ({ ...s, newRecipes: !s.newRecipes }))}
                 />
 
                 <SettingRow
                   title="Rappels de cuisine"
-                  desc="Notifications pour vos recettes planifiées"
                   value={settings.reminders}
                   onToggle={() => setSettings((s) => ({ ...s, reminders: !s.reminders }))}
                 />
 
                 <SettingRow
                   title="Newsletter"
-                  desc="Conseils et astuces culinaires"
                   value={settings.newsletter}
                   onToggle={() => setSettings((s) => ({ ...s, newsletter: !s.newsletter }))}
                 />
               </section>
 
               <section className="card">
-                <div className="cardHeader">
-                  <h2>Confidentialité</h2>
-                </div>
-
                 <SettingRow
                   title="Profil public"
-                  desc="Permettre aux autres de voir votre profil"
                   value={settings.publicProfile}
                   onToggle={() => setSettings((s) => ({ ...s, publicProfile: !s.publicProfile }))}
-                  labels={{ on: "Public", off: "Privé" }}
                 />
 
                 <SettingRow
                   title="Partage des recettes"
-                  desc="Partager vos créations avec la communauté"
                   value={settings.shareRecipes}
                   onToggle={() => setSettings((s) => ({ ...s, shareRecipes: !s.shareRecipes }))}
                 />
@@ -378,21 +315,19 @@ export default function Profil() {
   );
 }
 
-/* ---------------- Components internes ---------------- */
+/* ---------- Components internes ---------- */
 
 function Field({ label, icon, value, disabled, onChange }) {
   return (
     <div className="field">
       <div className="fieldLabel">{label}</div>
       <div className={`inputWrap ${disabled ? "disabled" : ""}`}>
-        <span className="inputIcon" aria-hidden="true">
-          {icon}
-        </span>
+        <span className="inputIcon">{icon}</span>
         <input
           className="input"
           value={value}
           disabled={disabled}
-          onChange={(e) => onChange?.(e.target.value)}
+          onChange={(e) => onChange(e.target.value)}
         />
       </div>
     </div>
@@ -405,17 +340,11 @@ function Group({ title, chips, onRemove, onAdd, chipTone }) {
       <div className="groupTitle">{title}</div>
       <div className="chipRow">
         {chips.map((c) => (
-          <button
-            key={c}
-            type="button"
-            className={`chip ${chipTone}`}
-            title="Cliquer pour enlever"
-            onClick={() => onRemove?.(c)}
-          >
-            {c} <span className="x">×</span>
+          <button key={c} className={`chip ${chipTone}`} onClick={() => onRemove(c)}>
+            {c} ×
           </button>
         ))}
-        <button type="button" className="chip add" onClick={onAdd}>
+        <button className="chip add" onClick={onAdd}>
           + Ajouter
         </button>
       </div>
@@ -423,19 +352,12 @@ function Group({ title, chips, onRemove, onAdd, chipTone }) {
   );
 }
 
-function SettingRow({ title, desc, value, onToggle, labels }) {
-  const onLabel = labels?.on ?? "Activé";
-  const offLabel = labels?.off ?? "Désactivé";
-
+function SettingRow({ title, value, onToggle }) {
   return (
     <div className="settingRow">
-      <div>
-        <div className="settingTitle">{title}</div>
-        {desc ? <div className="muted">{desc}</div> : null}
-      </div>
-
-      <button type="button" className={`toggleBtn ${value ? "on" : "off"}`} onClick={onToggle}>
-        {value ? onLabel : offLabel}
+      <div className="settingTitle">{title}</div>
+      <button className={`toggleBtn ${value ? "on" : "off"}`} onClick={onToggle}>
+        {value ? "Activé" : "Désactivé"}
       </button>
     </div>
   );
